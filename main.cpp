@@ -20,7 +20,7 @@ int main(int argc, const char* const argv[]) {
         cout << e.what() << endl;
     }
     boost::program_options::notify(vm);
-    enum class data_structure_type {
+    enum class data_structure_type : int {
         MAP,
         MULTI_INDEX,
         PROPERTY_TREE
