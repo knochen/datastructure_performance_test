@@ -16,11 +16,13 @@ class test_data_generator {
     const int PARAMETER_LENGTH_AVG;
     const unsigned long TREE_SIZE;
     std::vector<std::string> parameter_names;
+    std::vector<std::size_t> access_order;
     boost::random::random_device rng;
 
     protected:
     void init();
     std::string generate_parameter_name();
+    void generate_access_order();
     void add_parameter(std::string prefix, int layer, int node_depth);
 
     public:
@@ -32,17 +34,21 @@ class test_data_generator {
             NODE_LEAFES_AVG(node_members_avg),
             PARAMETER_LENGTH_AVG(parameter_name_length_avg),
             TREE_SIZE(tree_size),
-            parameter_names(TREE_SIZE),
+            parameter_names(),
+            access_order(),
             rng() { init(); }
     explicit test_data_generator() :
             TREE_DEPTH(3),
             NODE_LEAFES_AVG(5),
             PARAMETER_LENGTH_AVG(9),
             TREE_SIZE(2500),
-            parameter_names(TREE_SIZE),
+            parameter_names(),
+            access_order(),
             rng() { init(); }
     test_data_generator(const test_data_generator&) = delete;
     virtual ~test_data_generator() { }
+    const std::vector<std::string> &get_parameter_names() const;
+    const std::vector<std::size_t> &get_access_order() const;
 };
 
 

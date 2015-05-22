@@ -16,9 +16,7 @@ void test_data_generator::init() {
         int node_depth = dist_tree_depth(rng);
         add_parameter("", 0, node_depth);
     }
-    for(auto&&parameter_name : parameter_names) {
-        std::cout << parameter_name << std::endl;
-    }
+    generate_access_order();
 }
 
 std::string test_data_generator::generate_parameter_name() {
@@ -48,5 +46,23 @@ void test_data_generator::add_parameter(std::string prefix, int layer, int node_
     int node_leafes = static_cast<int>(dist_node_leafes(rng));
     for(int node_leaf = 0; node_leaf < node_leafes; node_leaf++) {
         add_parameter(parameter_name, layer + 1, node_depth);
+    }
+}
+
+const std::vector<std::string> &test_data_generator::get_parameter_names() const {
+    return parameter_names;
+}
+
+const std::vector<std::size_t> &test_data_generator::get_access_order() const {
+    return access_order;
+}
+
+void test_data_generator::generate_access_order() {
+    boost::random::uniform_int_distribution<> dist_parameter_access(0, static_cast<int>(TREE_SIZE) - 1);
+    std::size_t access_list_length = 10000;
+    access_order.clear();
+    access_order.reserve(access_list_length);
+    for(std::size_t i = 0; i < access_list_length; i++) {
+        access_order.push_back(dist_parameter_access(rng));
     }
 }
