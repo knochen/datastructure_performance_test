@@ -59,7 +59,7 @@ const std::vector<std::size_t> &test_data_generator::get_access_order() const {
 
 void test_data_generator::generate_access_order() {
     boost::random::uniform_int_distribution<> dist_parameter_access(0, static_cast<int>(TREE_SIZE) - 1);
-    std::size_t access_list_length = 10000;
+    std::size_t access_list_length = 1000000;
     access_order.clear();
     access_order.reserve(access_list_length);
     for(std::size_t i = 0; i < access_list_length; i++) {
